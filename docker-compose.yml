@@ -31,6 +31,8 @@ services:
       # - DEFAULT_ADMIN_NAME=Demo Demo
       # - DEFAULT_ADMIN_USERNAME=demo
 
+      # - SHOW_DETAILED_AUTH_ERRORS=false # Set to true to show more detailed authentication error messages. It should not be enabled without a rate limiter for security reasons.
+
       # - ALLOW_ALL_TO_CREATE_PROJECTS=true
 
       # - OIDC_ISSUER=
@@ -42,6 +44,7 @@ services:
       # - OIDC_RESPONSE_MODE=fragment
       # - OIDC_USE_DEFAULT_RESPONSE_MODE=true
       # - OIDC_ADMIN_ROLES=admin
+      # - OIDC_CLAIMS_SOURCE=userinfo
       # - OIDC_EMAIL_ATTRIBUTE=email
       # - OIDC_NAME_ATTRIBUTE=name
       # - OIDC_USERNAME_ATTRIBUTE=preferred_username
@@ -58,6 +61,7 @@ services:
       # - SMTP_USER=
       # - SMTP_PASSWORD=
       # - SMTP_FROM="Demo Demo" <demo@demo.demo>
+      # - SMTP_TLS_REJECT_UNAUTHORIZED=false
 
       # Optional fields: accessToken, events, excludedEvents
       # - |
@@ -70,12 +74,13 @@ services:
 
       # - SLACK_BOT_TOKEN=
       # - SLACK_CHANNEL_ID=
+      # - GOOGLE_CHAT_WEBHOOK_URL=
     depends_on:
       postgres:
         condition: service_healthy
 
   postgres:
-    image: postgres:14-alpine
+    image: postgres:16-alpine
     restart: on-failure
     volumes:
       - db-data:/var/lib/postgresql/data

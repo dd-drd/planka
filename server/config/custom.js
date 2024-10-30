@@ -8,8 +8,11 @@
  * https://sailsjs.com/config/custom
  */
 
+const url = require('url');
 const path = require('path');
 const sails = require('sails');
+
+const parsedBasedUrl = new url.URL(process.env.BASE_URL);
 
 module.exports.custom = {
   /**
@@ -19,8 +22,13 @@ module.exports.custom = {
    */
 
   baseUrl: process.env.BASE_URL,
+  baseUrlPath: parsedBasedUrl.pathname,
+  baseUrlSecure: parsedBasedUrl.protocol === 'https:',
 
   tokenExpiresIn: parseInt(process.env.TOKEN_EXPIRES_IN, 10) || 365,
+
+  // Location to receive uploaded files in. Default (non-string value) is a Sails-specific location.
+  fileUploadTmpDir: null,
 
   userAvatarsPath: path.join(sails.config.paths.public, 'user-avatars'),
   userAvatarsUrl: `${process.env.BASE_URL}/user-avatars`,
@@ -34,6 +42,8 @@ module.exports.custom = {
   defaultAdminEmail:
     process.env.DEFAULT_ADMIN_EMAIL && process.env.DEFAULT_ADMIN_EMAIL.toLowerCase(),
 
+  showDetailedAuthErrors: process.env.SHOW_DETAILED_AUTH_ERRORS === 'true',
+
   allowAllToCreateProjects: process.env.ALLOW_ALL_TO_CREATE_PROJECTS === 'true',
 
   oidcIssuer: process.env.OIDC_ISSUER,
@@ -45,6 +55,7 @@ module.exports.custom = {
   oidcResponseMode: process.env.OIDC_RESPONSE_MODE || 'fragment',
   oidcUseDefaultResponseMode: process.env.OIDC_USE_DEFAULT_RESPONSE_MODE === 'true',
   oidcAdminRoles: process.env.OIDC_ADMIN_ROLES ? process.env.OIDC_ADMIN_ROLES.split(',') : [],
+  oidcClaimsSource: process.env.OIDC_CLAIMS_SOURCE || 'userinfo',
   oidcEmailAttribute: process.env.OIDC_EMAIL_ATTRIBUTE || 'email',
   oidcNameAttribute: process.env.OIDC_NAME_ATTRIBUTE || 'name',
   oidcUsernameAttribute: process.env.OIDC_USERNAME_ATTRIBUTE || 'preferred_username',
@@ -65,9 +76,11 @@ module.exports.custom = {
   smtpUser: process.env.SMTP_USER,
   smtpPassword: process.env.SMTP_PASSWORD,
   smtpFrom: process.env.SMTP_FROM,
+  smtpTlsRejectUnauthorized: process.env.SMTP_TLS_REJECT_UNAUTHORIZED !== 'false',
 
   webhooks: JSON.parse(process.env.WEBHOOKS || '[]'), // TODO: validate structure
 
   slackBotToken: process.env.SLACK_BOT_TOKEN,
   slackChannelId: process.env.SLACK_CHANNEL_ID,
+  googleChatWebhookUrl: process.env.GOOGLE_CHAT_WEBHOOK_URL,
 };

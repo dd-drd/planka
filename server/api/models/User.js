@@ -6,10 +6,12 @@
  */
 
 const LANGUAGES = [
+  'ar-YE',
   'bg-BG',
   'cs-CZ',
   'da-DK',
   'de-DE',
+  'en-GB',
   'en-US',
   'es-ES',
   'fa-IR',

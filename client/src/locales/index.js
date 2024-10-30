@@ -1,7 +1,9 @@
+import arYE from './ar-YE';
 import bgBG from './bg-BG';
 import csCZ from './cs-CZ';
 import daDK from './da-DK';
 import deDE from './de-DE';
+import enGB from './en-GB';
 import enUS from './en-US';
 import esES from './es-ES';
 import faIR from './fa-IR';
@@ -25,10 +27,12 @@ import zhCN from './zh-CN';
 import zhTW from './zh-TW';
 
 const locales = [
+  arYE,
   bgBG,
   csCZ,
   daDK,
   deDE,
+  enGB,
   enUS,
   esES,
   faIR,
