@@ -20,6 +20,7 @@ const Activities = React.memo(
     canEditAllComments,
     onFetch,
     onDetailsToggle,
+    users,
     onCommentCreate,
     onCommentUpdate,
     onCommentDelete,
@@ -56,7 +57,7 @@ const Activities = React.memo(
               onClick={handleToggleDetailsClick}
             />
           </div>
-          {canEdit && <CommentAdd onCreate={onCommentCreate} />}
+          {canEdit && <CommentAdd onCreate={onCommentCreate} users={users} />}
           <div className={styles.wrapper}>
             <Comment.Group>
               {items.map((item) =>
@@ -74,7 +75,6 @@ const Activities = React.memo(
                 ) : (
                   <Item
                     key={item.id}
-                    type={item.type}
                     data={item.data}
                     createdAt={item.createdAt}
                     user={item.user}
@@ -96,6 +96,7 @@ const Activities = React.memo(
 
 Activities.propTypes = {
   items: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
+  users: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
   isFetching: PropTypes.bool.isRequired,
   isAllFetched: PropTypes.bool.isRequired,
   isDetailsVisible: PropTypes.bool.isRequired,

@@ -435,6 +435,7 @@ const CardModal = React.memo(
             )}
             <Activities
               items={activities}
+              users={allBoardMemberships}
               isFetching={isActivitiesFetching}
               isAllFetched={isAllActivitiesFetched}
               isDetailsVisible={isActivitiesDetailsVisible}
